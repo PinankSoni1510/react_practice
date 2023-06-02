@@ -11,13 +11,15 @@ export const Addtask = () => {
 
     let [name, setName] = useState('');
     let [desc, setDesc] = useState('');
-    let [userName, setUserName] = useState('');
+    let [userName, setUserName] = useState(userData.userName);
     let [actionId, setActionId] = useState(null);
+   
     useEffect(() => {
         if (!localStorage.getItem('userData')) {
             navigate('/login')
         }
-        setUserName(userData.userName)
+        
+        setUserName(userData[0].userName)
     }, []);
 
     const saveData = ()=>{
@@ -30,8 +32,13 @@ export const Addtask = () => {
             let taskData = JSON.parse(localStorage.getItem('taskData'));
 
 
+            console.log(actionId)
             if (actionId) {
+                console.log(taskData);
+                //taskData.splice(actionId, 1);
                 taskData[actionId] = obj;
+                console.log(taskData[actionId]);
+                
                 localStorage.setItem('taskData', JSON.stringify(taskData));
             } else {
                 taskData.push(obj)
@@ -49,6 +56,7 @@ export const Addtask = () => {
         setTaskData(JSON.parse(localStorage.getItem('taskData')));
     }
     
+   
 
     return (
 

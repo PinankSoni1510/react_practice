@@ -5,11 +5,19 @@ export const Viewtask = ({ fillEditData, taskData }) => {
 
     let [srNo, setSrNo] = useState(1);
 
-    function editData(key) {
+    const editData =(key)=>{
         let data = taskData[key];
         fillEditData({ data, key });
     }
 
+    const deleteData = (key)=>{
+        console.log(taskData);
+        taskData.splice(key, 1);
+        console.log(taskData);
+        localStorage.setItem('taskData', JSON.stringify(taskData));
+       
+    }
+    
     return (
 
 
@@ -33,7 +41,10 @@ export const Viewtask = ({ fillEditData, taskData }) => {
                                 <td>{srNo++}</td>
                                 <td>{value.task_name}</td>
                                 <td>{value.desc}</td>
-                                <td><Button variant='warning' className='ms-2' onClick={() => editData(key)}>Edit</Button><Button variant='danger' className='ms-2'>Delete</Button></td>
+                                <td>
+                                    <Button variant='warning' className='ms-2' onClick={() => editData(key)}>Edit</Button>
+                                    <Button variant='danger' className='ms-2' onClick={()=>deleteData(key)}>Delete</Button>
+                                </td>
                             </tr>
                         )
                     }
